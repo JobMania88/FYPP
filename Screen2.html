@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<style>
+		button {
+			background-color: #050505;
+
+			color: white;
+			padding: 8px 5px;
+			margin: 4px 0;
+			border: none;
+			cursor: pointer;
+			width: 30%;
+			opacity: 0.9;
+			border-radius: 12px;
+		}
+		img {
+			float: right;
+		}
+
+		input[type="text"],
+		input[type="password"] {
+			width: 40%;
+			padding: 15px;
+			margin: 5px 0 22px 0;
+			display: inline-block;
+			border: none;
+			background: #f1f1f1;
+		}
+		input[type="text"]:focus,
+		input[type="password"]:focus {
+			background-color: #ddd;
+			outline: none;
+		}
+	</style>
+	<body>
+		<div style="height: 80px; background-color: #050505">
+			<h1 style="color: aliceblue; padding-top: 25px">
+				<center>Create Profile</center>
+			</h1>
+		</div>
+		<div style="padding-left: 20%; padding-right: 20%; padding-top: 5px">
+			<h2><center>General Details</center></h2>
+			<img
+				src="https://www.insidehighered.com/sites/default/server_files/styles/thumbnail_refresh/public/media/mcdonald.jpg?itok=X2IphAe2"
+			/>
+			<br />
+			<label for="Education"><b>Education</b></label
+			><br />
+			<input
+				type="text"
+				placeholder="Enter Education"
+				name="Education"
+				required
+			/><br />
+
+			<label for="Phone"><b>Phone</b></label
+			><br />
+			<input
+				type="text"
+				placeholder="Enter Phone"
+				name="Phone"
+				required
+			/><br />
+			<div style="float: right; width: 30%">
+				<button type="submit" class="signupbtn">Cancel</button>
+				<button
+					type="submit"
+					class="signupbtn"
+					id="next-btn"
+					onClick="location.href='Screen3.html'"
+				>
+					Next
+				</button>
+			</div>
+		</div>
+	</body>
+	<script>
+		const SubmitButton = document.getElementById("next-btn");
+
+		SubmitButton.onclick = (e) => {
+			const education = document.getElementsByName("Education");
+			const phone = document.getElementsByName("Phone");
+
+			const Data = {
+				user_id: "63b2c6e0-39b0-4c56-b864-093d05414310",
+				education: education.value,
+				phone: phone.value,
+			};
+
+			fetch("https://0bec-119-73-124-17.ap.ngrok.io/profile", {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(Data),
+			})
+				.then((response) => response.json())
+				.then((data) => console.log(data))
+				.catch((error) => console.error(error));
+		};
+	</script>
+</html>
